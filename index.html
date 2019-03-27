@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Titulo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="landing/stisla.png">
+    <link rel="stylesheet" href="dist/modules/prism/prism.css">
+    <link rel="stylesheet" href="dist/modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/modules/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="dist/modules/chocolat/dist/css/chocolat.css">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <link rel="stylesheet" href="dist/css/custom.css">
+    <link rel="stylesheet" href="landing/style.css">
+</head>
+<body>
+
+    <body class="body-grey">
+        <!-- Menu -->
+        <nav class="navbar navbar-reverse navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand smooth" href="#">DRE</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto ml-lg-3 align-items-lg-center">
+                            <li class="nav-item"><a href="#"  id="modal-2" class="nav-link">Ayuda</a></li>
+                        <li class="nav-item d-lg-none d-md-block"><a href="#" class="nav-link smooth" target="_blank">Login</a></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto align-items-lg-center d-none d-lg-block">
+                        
+                        <li class="ml-lg-3 nav-item">
+                            <a href="#" id="modal-1" class="btn btn-round smooth btn-icon icon-left">
+                                <i class="fas fa-user"></i> Login
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+         <!-- Menu fin-->
+
+         <div class="hero-mini">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <h1>¡Bienvenidos!</h1>
+                            <p class="lead">Verifica si estás inscrito en el registro nacional de títulos pedagógicos o tecnológicos. </p>
+                            <div class="form-group row">
+                                
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="frist_name">DNI</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="frist_name">APELLIDOS Y NOMBRES</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="cta">
+                                <a class="btn btn-lg btn-warning btn-icon icon-right" href="#" id="my-button2">Verificar Ahora <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 pl-lg-5 d-lg-block d-none text-center">
+                            <img src="https://getstisla.com/landing/undraw_hello_aeia.svg" alt="image" class="img-fluid img-flip" width="80%">
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <!-- Formulario Login -->
+            <form class="modal-part" id="modal-login-part">
+                   
+                    <div class="form-group">
+                      <label>Usuario</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-envelope"></i>
+                          </div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Usuario" name="Usuario">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Contraseña</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-lock"></i>
+                          </div>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Usuario" name="Usuario">
+                      </div>
+                    </div>
+                    
+                  </form>
+            <!-- Formulario Login Fin -->
+    </body>
+
+    <!-- js -->
+    <script src="dist/modules/jquery.min.js"></script>
+    <script src="dist/modules/popper.js"></script>
+    <script src="dist/modules/tooltip.js"></script>
+    <script src="dist/modules/bootstrap/js/bootstrap.min.js"></script>
+    <script src="dist/modules/prism/prism.js"></script>
+    <script src="dist/js/stisla.js"></script>
+    <script src="landing/script.js"></script>
+    <script>
+        $("#my-button2").fireModal({
+  title: 'Resultados',
+  body: '<p>Verificando....</p>',
+  created: function(modal) {
+      console.log('Modal has been created');
+  },
+  buttons: [
+    {
+      text: 'Cerrar',
+      class: 'btn btn-primary btn-shadow',
+      handler: function(modal) {
+       
+      }
+    }
+  ]
+});
+    </script>
+</body>
+</html>
