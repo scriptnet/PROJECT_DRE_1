@@ -85,3 +85,28 @@ $("#modal-2").fireModal({
     }
   ]
 });
+
+// VERIFICANDO TITULO
+$("#modal-TITULO").fireModal({
+  size: 'modal-lg',
+  title: 'Resultados:',
+  body: $("#modal-verificando"),
+  footerClass: 'bg-whitesmoke',
+  autoFocus: false,
+  buttons: [
+    {
+      text: 'Login',
+      submit: true,
+      class: 'btn btn-primary btn-shadow',
+      handler: function(modal) {
+      }
+    },
+    {
+      text: 'Close',
+      class: 'btn btn-secondary',
+      handler: function(current_modal) {
+      $.destroyModal(current_modal);
+      }
+    }
+  ]
+});
