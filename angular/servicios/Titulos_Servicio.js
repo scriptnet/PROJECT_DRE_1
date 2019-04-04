@@ -8,6 +8,7 @@ app.factory('Titulos', ['$http', '$q', function($http, $q){
 		'cargando'		: false,
 		'err'     		: false,
 		'conteo' 		: 0,
+		'DNI'			: [],
 		'titulo' 		: [],
 		'valid' 		: [],
 		'detalle_T' 		: [],
@@ -19,17 +20,20 @@ app.factory('Titulos', ['$http', '$q', function($http, $q){
 
 
 		// ############################### Buscar a los titulo que considan
+
 		buscar: function( parametro ){
 			var d = $q.defer();
 			self.cargando = true;
-			$http.post('consultas/get.titulo.buscar.php?p=' + parametro )
+			$http.post('consultas/dni.php?p=' + parametro )
 				.success(function( respuesta ){
 					self.cargando = false;
-					self.titulo = respuesta.tbl_titulado;
-                    d.resolve();
+					self.DNI = respuesta.DNI;
+					
+					d.resolve();
 				});
 			return d.promise;
 		},
+		
 		// Fin
 		// validamos el capcha
 		validarCapcha: function( parametro ){
@@ -52,6 +56,10 @@ app.factory('Titulos', ['$http', '$q', function($http, $q){
 				.success(function( respuesta ){
 					self.cargando = false;
 					self.detalle_T = respuesta;
+					
+					
+					
+					
 					d.resolve();
 					
 					

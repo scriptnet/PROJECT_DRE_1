@@ -84,7 +84,7 @@
                                     
                                     <div class="col-sm-12 col-md-6">
                                         <br>
-                                        <label for="frist_name">DNI O APELLIDOS Y NOMBRES</label>
+                                        <label for="frist_name">DNI:</label>
                                         <input ng-model="buscar" type="text" class="form-control" required>
                                     </div>
                                     
@@ -197,7 +197,7 @@
                           </div>
                           <div class="modal-body">
                             
-                              <div class="profile-widget" ng-hide="titulo.id_Titulado === undefined">
+                              <div class="profile-widget" ng-hide="identidad[0] === undefined">
                                   <div class="profile-widget-header">                     
                                     <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
                                     <div class="profile-widget-items">
@@ -216,20 +216,26 @@
                                     </div>
                                   </div>
                                   <div class="profile-widget-description">
-                                    <div class="profile-widget-name">{{titulo.T_Apellidos}} {{titulo.T_Nombres}} 
+                                    <div class="profile-widget-name">{{identidad[1]}} {{identidad[2]}}, {{identidad[3]}} 
                                       <div class="text-muted d-inline font-weight-normal">
-                                        <div class="slash"></div> {{titulo.T_Dni}}</div></div>
+                                        <div class="slash"></div> {{identidad[0]}}</div></div>
                                   
                                   </div>
                                   
                                 </div>
 
-                                <div class="row" ng-hide="titulo.id_Titulado === undefined">
+                                <div class="row" ng-hide="Detalle_T === undefined">
                                       <div class="col-12">
                                         <div class="activities">
                                             <div ng-show="load_dt" style="padding-left: 45%">
                                               <img src="dist/img/spinner.svg" alt="">
                                             </div>
+                                            <div style="padding-left: 35%">
+                                                <div ng-show="error2" class="badge badge-danger mb-0">
+                                                    No encontrado
+                                                  </div>
+                                            </div>
+                                           
                                           
                                           <div ng-show="!load_dt" class="activity" ng-repeat="titulosall in Detalle_T.Detalle_T">
                                             <div class="activity-icon bg-primary text-white shadow-primary">
@@ -259,23 +265,6 @@
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="card-body" ng-show="titulo.id_Titulado === undefined">
-                                        <ul class="list-unstyled user-progress list-unstyled-border list-unstyled-noborder">
-                                          <li class="media" ng-repeat="titulo in titulos">
-                                            <img alt="image" class="mr-3 rounded-circle" width="50" src="assets/img/avatar/avatar-1.png">
-                                            <div class="media-body">
-                                              <div class="media-title">{{titulo.T_Apellidos}} {{titulo.T_Nombres}}</div>
-                                              <div class="text-job text-muted">{{titulo.T_Dni}}</div>
-                                            </div>
-                                            
-                                            <div class="media-cta">
-                                              <a href="#" ng-click="titulo_sel ( titulo )" class="btn btn-outline-primary">Ver</a>
-                                            </div>
-                                          </li>
-                                          
-                                          
-                                        </ul>
-                                      </div>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>

@@ -6,12 +6,14 @@ var app = angular.module( 'DREETTP',[
 app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService', function($scope,$http, Titulos, vcRecaptchaService){
 	
 	//#################################### iniializamos variables ###################################
-	$scope.titulo = {};
+	$scope.identidad = {};
 	$scope.Detalle_T = {};
 	$scope.buscar = '78375004'; // aqui podriamos volocar un valor en el input de Titulos
 	$scope.cargando = false;
 	$scope.error = false;
+	$scope.error2 = false;
 	$scope.load_dt = false;
+
 
 	console.log("this is your app's controller");
 	$scope.response = null;
@@ -47,30 +49,43 @@ app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService', 
 			$scope.cargando = false;
 				
 			
-
+			
 				 if (Titulos.valid) {
-					$scope.titulos = {};
-					Titulos.buscar(buscar).then(function(){
-						if( isNaN( buscar ) )
-						{	
-							//si es texto
-									$("#resultadosModalDni").modal();
-									   $scope.titulos = Titulos.titulo;
-									  // console.log($scope.titulos);
-							  }else{
-									$("#resultadosModalDni").modal();
-									  $scope.titulo = Titulos.titulo[0];
-										$scope.titulos = Titulos.titulo;
-										//console.log($scope.titulos);
-										$scope.load_dt = true;
-										Titulos.detalle_titulado($scope.titulo.id_Titulado).then(function(){
-											$scope.load_dt = false
-											$scope.Detalle_T = Titulos.detalle_T;
-											console.log($scope.Detalle_T);
-										});
-							  }	  
-				   });
 					
+					$scope.titulos = {};
+			Titulos.buscar(buscar).then(function(){
+				if( isNaN( buscar ) )
+				{	
+					//si es texto
+							$("#resultadosModalDni").modal();
+							   $scope.titulos = Titulos.titulo;
+							  // console.log($scope.titulos);
+					  }else{
+							$("#resultadosModalDni").modal();
+							  $scope.identidad = Titulos.DNI;
+							 
+							  
+								// $scope.titulos = Titulos.titulo;
+								
+								 $scope.load_dt = true;
+								Titulos.detalle_titulado($scope.identidad[0]).then(function(){
+									if (Titulos.detalle_T.Detalle_T.length > 0) {
+										console.log("DATO RECIBIDO");
+										$scope.load_dt = false
+										$scope.Detalle_T = Titulos.detalle_T;
+									} else {
+										$scope.load_dt = false
+										$scope.error2 = true;
+										console.log("DATO no RECIBIDO");
+										
+									}
+									
+									
+									
+									
+								});
+					  }	  
+		   });
 					
 				 }else{
 					$scope.error = true;
@@ -110,9 +125,8 @@ app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService', 
 		
 	}
 	$scope.limpiarVar = function(){
-		$scope.titulo = {};
-		
+		$scope.identidad = {};
+		$scope.Detalle_T = {};
+		$scope.error2 = false;
 	}
-
-
 }]);
