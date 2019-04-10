@@ -1,9 +1,9 @@
 var app = angular.module( 'DREETTP',[
-    'ngRoute','vcRecaptcha',
+    'ngRoute','vcRecaptcha', 'DREETTP.LoginService',
     'DREETTP.titulos',
     ]);
 
-app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService', function($scope,$http, Titulos, vcRecaptchaService){
+app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService','loginService', function($scope,$http, Titulos, vcRecaptchaService, loginService){
 	
 	//#################################### iniializamos variables ###################################
 	$scope.identidad = {};
@@ -70,13 +70,17 @@ app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService', 
 								 $scope.load_dt = true;
 								Titulos.detalle_titulado($scope.identidad[0]).then(function(){
 									if (Titulos.detalle_T.Detalle_T.length > 0) {
-										console.log("DATO RECIBIDO");
+										//console.log("DATO RECIBIDO");
+										//console.log(Titulos.detalle_T.Detalle_T.length);
+										
 										$scope.load_dt = false
 										$scope.Detalle_T = Titulos.detalle_T;
+										
+										
 									} else {
 										$scope.load_dt = false
 										$scope.error2 = true;
-										console.log("DATO no RECIBIDO");
+										//console.log("DATO no RECIBIDO");
 										
 									}
 									
@@ -111,8 +115,6 @@ app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService', 
     $scope.DESARROLLADOR = {
         nombre:"Alex Yzquierdo"
     }
-
-
 	$scope.titulo_sel = function(titulo){
 		$scope.load_dt = true;
 		$scope.titulo = titulo;
@@ -128,5 +130,30 @@ app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService', 
 		$scope.identidad = {};
 		$scope.Detalle_T = {};
 		$scope.error2 = false;
+	}
+
+	//Login controlador
+	$scope.login = function (){
+		$("#loginModal").modal();
+	}
+	$scope.invalido = false;
+	$scope.cargandoLogin = false;
+	$scope.mensaje = "";
+	$scope.datos = {
+		//objeto
+	};
+
+	$scope.ingresar = function (datos){
+		$scope.cargandoLogin = true;
+
+		loginService.login( datos ).then( function (data){
+				if ( data.err ) {
+					$scope.invalido = true;
+					$scope.cargandoLogin = false;
+					$scope.mensaje = data.mensaje;
+				} else {
+					window.location = data.url;
+				}
+		});
 	}
 }]);

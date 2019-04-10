@@ -1,3 +1,7 @@
+<?php 
+  session_start();
+  unset ( $_SESSION['user'] ); 
+?>
 <!DOCTYPE html>
 <html ng-app="DREETTP" ng-controller="mainCtrl">
 <head>
@@ -27,6 +31,7 @@
     <script src="angular/controladores/Titulos_Ctrl.js"></script>
      <!-- servicios -->
      <script src="angular/servicios/Titulos_Servicio.js"></script>
+     <script src="angular/servicios/Login_Servicio.js"></script>
 
      <!-- recapcha -->
      <!-- Include the ngReCaptcha directive -->
@@ -58,7 +63,7 @@
                     </ul>
                     <ul class="navbar-nav ml-auto align-items-lg-center d-none d-lg-block">
                         <li class="ml-lg-3 nav-item">
-                            <a href="#" id="modal-1" class="btn btn-round smooth btn-icon icon-left">
+                            <a href="#" ng-click="login()" class="btn btn-round smooth btn-icon icon-left">
                                 <i class="fas fa-user"></i> Login
                             </a>
                         </li>
@@ -116,17 +121,27 @@
                                 
                             </form>
                         </div>
+                        
                         <div class="col-lg-5 pl-lg-5 d-lg-block d-none text-center">
                             <!-- https://getstisla.com/landing/undraw_hello_aeia.svg -->
                             <img src="landing/studiante.svg" alt="image" class="img-fluid img-flip" width="80%">
                         </div>
-                       
+                        
                     </div>
+                    
                     
                 </div>
                 
             </div>
-           
+            <div class="container">
+              <div class="row">
+              <div class="col-lg-7" style="padding-top: 50px;" >
+              <div class="d-sm-none d-lg-inline-block texto_blanco">
+                NOTA:</div>
+                        </div>  
+              </div>
+            </div>
+            
             <div class="" style="padding-top: 150px">
                 <div class="owl-carousel owl-theme" id="products-carousel">
                     <div>
@@ -157,30 +172,69 @@
             </div>
             
             <!-- Formulario Login -->
-            <form class="modal-part" id="modal-login-part">
-                    <div class="form-group">
-                      <label>Usuario</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                            <i class="fas fa-envelope"></i>
-                          </div>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Usuario" name="Usuario">
-                      </div>
+            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                    <div class="form-group">
-                      <label>Contraseña</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                            <i class="fas fa-lock"></i>
+                    <div class="modal-body">
+                      <form  name="forma" ng-submit="ingresar( datos )">
+                        
+                          <div class="profile-widget" class="modal-part">
+                              <div class="profile-widget-header">                     
+                                  <img alt="image" src="img/login.png" class="img-login">
+                                </div>
                           </div>
-                        </div>
-                        <input type="password" class="form-control" placeholder="Usuario" name="Usuario">
-                      </div>
+                          <div class="form-group">
+                              <label>Usuario</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="fas fa-envelope"></i>
+                                  </div>
+                                </div>
+                                <input
+                                  type="text" 
+                                  class="form-control" 
+                                  placeholder="Usuario"
+                                  name="Usuario"
+                                  required="required"
+                                  ng-model="datos.usuario">
+                                  
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>Contraseña</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="fas fa-lock"></i>
+                                  </div>
+                                </div>
+                                <input 
+                                  type="password" 
+                                  class="form-control" 
+                                  placeholder="Contraseña"
+                                  name="contrasena"
+                                  required="required"
+                                  ng-model="datos.contrasena">
+                              </div>
+                            </div>
+                            <div ng-show="invalido" class="alert alert-danger">{{mensaje}} </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button type="submit" ng-disabled="forma.$invalid || cargandoLogin" class="btn btn-primary">Ingresar</button>
                     </div>
                   </form>
+                  </div>
+                </div>
+              </div>
+           
             <!-- Formulario Login Fin -->
             <!-- Modal Verificando -->
             <!-- Modal -->
@@ -203,7 +257,7 @@
                                     <div class="profile-widget-items">
                                       <div class="profile-widget-item">
                                         <div class="profile-widget-item-label">Titulos</div>
-                                        <div class="profile-widget-item-value">2</div>
+                                        <div class="profile-widget-item-value">{{Detalle_T.Detalle_T.length}}</div>
                                       </div>
                                       <div class="profile-widget-item">
                                         <div class="profile-widget-item-label">Verificado</div>
@@ -244,8 +298,7 @@
                                             
                                             <div class="activity-detail">
                                               <div class="mb-2">
-                                                  <span class="text-job text-primary">16/03/12 - </span>
-                                                <span class="text-job text-primary">30/05/18</span>
+                                               
                                                 <span class="bullet"></span>
                                                 <a class="text-job" href="#">{{titulosall.I_Nombre}}</a>
                                                 <div class="float-right dropdown">
@@ -259,7 +312,16 @@
                                                   </div>
                                                 </div>
                                               </div>
-                                              <p>{{titulosall.DIT_Carrera}}</p>
+                                              <p>
+                                                <div class="badge badge-warning ">Carrera:</div>
+                                                <br>
+                                                <div class="Detalles_paddingleft">{{titulosall.DIT_Carrera}}</div>
+                                              </p>
+                                              <span class="">                                             
+                                              <div class="badge badge-info">Fecha de titulación:</div>
+                                              <br>
+                                              <div class="Detalles_paddingleft">30/05/18</div>
+                                            </span>
                                             </div>
                                           </div>
                                         </div>

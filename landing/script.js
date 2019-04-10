@@ -26,47 +26,6 @@ $("#my-button").fireModal({
   ]
 });
 
-$("#modal-1").fireModal({
-  title: 'Login',
-  body: $("#modal-login-part"),
-  footerClass: 'bg-whitesmoke',
-  autoFocus: false,
-  onFormSubmit: function(modal, e, form) {
-    // Form Data
-    let form_data = $(e.target).serialize();
-    console.log(form_data)
-    
-    // DO AJAX HERE
-    let fake_ajax = setTimeout(function() {
-      form.stopProgress();
-      modal.find('.modal-body').prepend('<div class="alert alert-info">Listo!!! </div>')
-      location.href="panel/index.html";
-      clearInterval(fake_ajax);
-    }, 1500);
-
-    e.preventDefault();
-  },
-  shown: function(modal, form) {
-    console.log(form)
-    
-  },
-  buttons: [
-    {
-      text: 'Login',
-      submit: true,
-      class: 'btn btn-primary btn-shadow',
-      handler: function(modal) {
-      }
-    },
-    {
-      text: 'Close',
-      class: 'btn btn-secondary',
-      handler: function(current_modal) {
-      $.destroyModal(current_modal);
-      }
-    }
-  ]
-});
 
 $("#modal-2").fireModal({
   title: 'Ayuda',

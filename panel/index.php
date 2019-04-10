@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  $user = $_SESSION['user'];
+
+  if(!isset($_SESSION['user']) || empty($_SESSION['user'])){
+    header("location: ../index.php");
+    exit;
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -271,7 +280,7 @@
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>Dashboard</h1>
+            <h1>Dashboard <?php   echo  $user; ?></h1>
           </div>
 
           <div class="section-body">
