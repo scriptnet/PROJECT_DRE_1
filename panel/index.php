@@ -29,6 +29,8 @@
   <!-- Controlador js -->
   <script src="angular/app.js"></script>
   <script src="angular/controlador/cargarCtrl.js"></script>
+  <!-- Servicios js -->
+  <script src="angular/servicios/tituladosServ.js"></script>
    <!-- exel Libreria -->
   <script src = "js/libreria/xlsx.full.min.js" > </script>  
   <script src = "js/libreria/jszip.js" > </script>  
@@ -255,7 +257,7 @@
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <a href="../index.php" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
             </div>
@@ -276,7 +278,7 @@
             <li class="menu-header">TITULADOS</li>
             
             <li><a class="nav-link" href="#/titulados"><i class="far fa-file-alt"></i> <span>Listar</span></a></li>
-            <li><a class="nav-link" href="#/cargar"><i class="far fa-square"></i> <span>Cargar</span></a></li>
+            <li><a class="nav-link" href="#/cargar/1"><i class="far fa-square"></i> <span>Cargar</span></a></li>
             <li class="menu-header">Stisla</li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i> <span>Components</span></a>

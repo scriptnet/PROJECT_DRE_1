@@ -22,7 +22,7 @@
             <div class="card-body p-0">
               <div class="tickets-list">
                   <div class="ticket-item ticket-more" ng-click="handleFile(user)">
-                      <a href="#/cargar" class="btn btn-primary" >Subir</a>
+                      <a href="" class="btn btn-primary" >Subir</a>
                       <p ng-bind="msg"></p>
                     </div>
                 
@@ -36,11 +36,11 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">
-          <h4>Lista</h4>
+          <h4>Total: {{titulados.conteo}}</h4>
           <div class="card-header-action">
               <form class="ng-pristine ng-valid">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Buscar">
+                  <input type="text" class="form-control" placeholder="Buscar" ng-keyup='fetchEmployees()' ng-model='searchText'>
                   <div class="input-group-btn">
                     <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                   </div>
@@ -58,66 +58,31 @@
                 <th>Carrera</th>
                 <th>Más</th>
               </tr>
-              <tr>
-                <td><a href="#">Alex Darlin</a></td>
-                <td class="font-weight-600">Ocas Yzquierdo</td>
-                <td><div class="badge badge-success">78375004</div></td>
-                <td>04/05/2019</td>
+              <tr ng-repeat="titulado in titulados.titulado">
+                <td><a href="#">{{titulado.T_Nombres}} </a></td>
+                <td class="font-weight-600">{{titulado.T_Apellidos}} </td>
+                <td><div class="badge badge-success">{{titulado.Cod_Dit}}</div></td>
+                <td>{{titulado.DIT_Carrera}}</td>
                 <td>
                     <a href="#" class="btn btn-primary">Más</a>
                 </td>
               </tr>
-              <tr>
-                <td><a href="#">INV-48574</a></td>
-                <td class="font-weight-600">Hasan Basri</td>
-                <td><div class="badge badge-success">Paid</div></td>
-                <td>July 21, 2018</td>
-                <td>
-                    <a href="#" class="btn btn-primary">Más</a>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="#">INV-76824</a></td>
-                <td class="font-weight-600">Muhamad Nuruzzaki</td>
-                <td><div class="badge badge-warning">Unpaid</div></td>
-                <td>July 22, 2018</td>
-                <td>
-                    <a href="#" class="btn btn-primary">Más</a>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="#">INV-84990</a></td>
-                <td class="font-weight-600">Agung Ardiansyah</td>
-                <td><div class="badge badge-warning">Unpaid</div></td>
-                <td>July 22, 2018</td>
-                <td>
-                    <a href="#" class="btn btn-primary">Más</a>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="#">INV-87320</a></td>
-                <td class="font-weight-600">Ardian Rahardiansyah</td>
-                <td><div class="badge badge-success">Paid</div></td>
-                <td>July 28, 2018</td>
-                <td>
-                  <a href="#" class="btn btn-primary">Más</a>
-                </td>
-              </tr>
+              
             </tbody></table>
           </div>
           <div class="card-footer text-right">
               <nav class="d-inline-block">
                 <ul class="pagination mb-0">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
+                  <li ng-click="moverA(1)" class="page-item">
+                    <a class="page-link" href="" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
                   </li>
-                  <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                  <li ng-repeat="pag in titulados.paginas" class="page-item" ng-class="{'active': titulados.pag_actual === pag}">
+                    <a class="page-link" href="" ng-click="moverA(pag)">
+                        {{ pag }}
+                      </a>
+                    </li>
+                  <li ng-click="moverA( titulados.total_paginas )" class="page-item">
+                    <a class="page-link" href=""><i class="fas fa-chevron-right"></i></a>
                   </li>
                 </ul>
               </nav>

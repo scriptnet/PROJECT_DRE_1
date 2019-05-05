@@ -337,15 +337,19 @@ class Database{
 	}
 
 //  // ================================================
-//   Funcion que pagina cualquier TABLA_CLIENTE
+//   Funcion que pagina cualquier TABLA_TITULADO
 // ================================================
-Public static function get_todo_paginado_cliente( $tabla, $pagina = 1, $por_pagina = 5 ){
+Public static function get_todo_paginado_titulado( $tabla, $pagina = 1, $institucion, $buscar, $por_pagina = 5 ){
 
 	// Core de la funcion
 	$db = DataBase::getInstancia();
 	$mysqli = $db->getConnection();
 
-	$sql = "SELECT count(*) as cuantos from $tabla";
+	$sql = "SELECT count(*) as cuantos from $tabla DETA INNER JOIN tbl_titulado TI ON DETA.Cod_Dit = TI.T_Dni WHERE DETA.id_institucion = $institucion";
+
+	if($buscar != ''){
+		$sql .= " AND (DETA.Cod_Dit like '%".$buscar."%' OR DETA.DIT_Carrera like '%".$buscar."%' OR TI.T_Nombres like '%".$buscar."%' OR TI.T_Apellidos like '%".$buscar."%')";
+	}
 
 	$cuantos       = Database::get_valor_query( $sql, 'cuantos' );
 	$total_paginas = ceil( $cuantos / $por_pagina );
@@ -375,8 +379,11 @@ Public static function get_todo_paginado_cliente( $tabla, $pagina = 1, $por_pagi
 	}
 
 
-	$sql = "SELECT * from $tabla order by id_cliente DESC limit $desde, $por_pagina";
-
+	$sql = "SELECT * from $tabla DETA INNER JOIN tbl_titulado TI ON DETA.Cod_Dit = TI.T_Dni WHERE DETA.id_Institucion = $institucion ";
+	if($buscar != ''){
+		$sql .= " AND (DETA.Cod_Dit like '%".$buscar."%' OR DETA.DIT_Carrera like '%".$buscar."%' OR TI.T_Nombres like '%".$buscar."%' OR TI.T_Apellidos like '%".$buscar."%')";
+	}
+	$sql .= " order by DETA.id_Detalle_IT DESC limit $desde, $por_pagina ";
 	$datos = Database::get_arreglo( $sql );
 
 	$resultado = $mysqli->query($sql);

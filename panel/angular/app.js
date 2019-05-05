@@ -1,4 +1,4 @@
-var myApp = angular.module('scriptnet',['ngRoute','scriptnet.cargarCrtl']);
+var myApp = angular.module('scriptnet',['ngRoute','scriptnet.cargarCrtl','scriptnet.tituladosServ']);
 
 myApp.controller('panelControlador', ['$scope', function($scope){
     $scope.hola = 'Hosla';
@@ -18,7 +18,7 @@ myApp.config(['$routeProvider', function($routeProvider){
         .when('/titulados',{
             templateUrl:'ruta/titulados.html'
         })
-        .when('/cargar',{
+        .when('/cargar/:pag',{
             templateUrl:'ruta/cargar.html',
             controller: 'cargarCtrl'
         })

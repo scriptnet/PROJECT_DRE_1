@@ -1,7 +1,49 @@
 var app = angular.module('scriptnet.cargarCrtl', []);
 
-app.controller('cargarCtrl', ['$scope', '$http', function ($scope, $http) {  
-  
+app.controller('cargarCtrl', ['$scope', '$http','$routeParams','Titulados', function ($scope, $http, $routeParams, Titulados) {  
+    // Listar
+    var pag = $routeParams.pag;
+
+	$scope.titulados = {};
+	$scope.tituladosSel = {};
+
+    $scope.moverA = function( pag ){
+        $scope.fetchEmployees = function(){
+            var searchText = $scope.searchText;
+               
+            
+		Titulados.cargarPagina( pag, searchText ).then( function(){
+			$scope.titulados = Titulados;
+        console.log($scope.titulados);
+        });
+        
+    }
+    $scope.fetchEmployees();
+    };
+    
+	$scope.moverA(pag);
+    // ######################################buscaremos al titulado
+       
+            //Obtener datos
+            // $scope.fetchEmployees = function(){
+                
+            //     var searchText = $scope.searchText;
+            //     if(searchText == undefined){
+            //         searchText = '';
+            //     }
+
+            //     $http({
+            //     method: 'post',
+            //     url: 'post.buscar.titulado.php',
+            //     data: {searchText:searchText, request: 2}
+            //     }).then(function successCallback(response) {
+            //         $scope.employees = response.data;
+            //     });
+            // }
+            // $scope.fetchEmployees();
+       
+    // ###################################### cargar exel
+
     $scope.selectedFile = null;  
     $scope.msg = "";  
     $scope.loadFile = function (files) {  
@@ -29,7 +71,8 @@ app.controller('cargarCtrl', ['$scope', '$http', function ($scope, $http) {
             reader.readAsBinaryString(file);  
         }  
     }  
-    $scope.save = function (data, user) {  
+    $scope.save = function (data, user) {
+       
         $http({  
             method: "POST",  
             url: "api/egresados.php",  
@@ -40,9 +83,25 @@ app.controller('cargarCtrl', ['$scope', '$http', function ($scope, $http) {
         }).then(function (data) {
             if (data.status) {  
                 $scope.msg = "Cargado! ";  
+                var pag = $routeParams.pag;
+
+                $scope.titulados = {};
+                $scope.tituladosSel = {};
+            
+                $scope.moverA = function( pag ){
+            
+                    Titulados.cargarPagina( pag ).then( function(){
+                        $scope.titulados = Titulados;
+                    console.log($scope.titulados);
+                    });
+            
+                };
+                
+                $scope.moverA(pag);
             } 
             else {  
-                $scope.msg = "Error : Something Wrong";    
+                $scope.msg = "Error : Something Wrong";  
+                
             }  
         }, function (error) {  
             // $scope.msg = "Error : Something Wrong";  

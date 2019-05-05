@@ -38,13 +38,13 @@ foreach ($jsonarray as $row) {
     }
     
 
-  $sql3="SELECT id_Titulado FROM tbl_detalle_it WHERE id_Titulado = '$Cod' AND id_Institucion = '$institucion' AND DIT_Carrera = '$Carrera'";
+  $sql3="SELECT Cod_Dit FROM tbl_detalle_it WHERE Cod_Dit = '$Cod' AND id_Institucion = '$institucion' AND DIT_Carrera = '$Carrera'";
     $RESPUESTA  = Database::get_row( $sql3 ); 
-    if(isset($RESPUESTA["id_Titulado"])){
+    if(isset($RESPUESTA["Cod_Dit"])){
       $hecho = true;
      }else{
        
-       $sql2 = "INSERT INTO tbl_detalle_it (id_Institucion,id_Titulado,DIT_Fecha, DIT_Carrera)
+       $sql2 = "INSERT INTO tbl_detalle_it (id_Institucion,Cod_Dit,DIT_Fecha, DIT_Carrera)
       VALUES('$institucion','$Cod','$resultadoFecha', '$Carrera')";
        $hecho2 = Database::ejecutar_idu( $sql2 );
      }
