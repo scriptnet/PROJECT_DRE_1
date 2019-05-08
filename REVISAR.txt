@@ -1,1 +1,3 @@
-VER ID_TITULADO EN LA BUSQUEDA DE TITULOS
+preguntar: si puede tomar otra ves la misma carrera?
+si es asi
+verificamos con la fecha.

@@ -253,7 +253,7 @@
                             
                               <div class="profile-widget" ng-hide="identidad[0] === undefined">
                                   <div class="profile-widget-header">                     
-                                    <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
+                                    <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture" style="margin: -35px -5px 0 0px;">
                                     <div class="profile-widget-items">
                                       <div class="profile-widget-item">
                                         <div class="profile-widget-item-label">Titulos</div>

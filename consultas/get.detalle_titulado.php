@@ -8,10 +8,10 @@ $parametro = $_GET['p'];
 
     $sql = "SELECT * FROM tbl_titulado TI
             INNER JOIN tbl_detalle_it DT
-            ON TI.id_Titulado = DT.id_Titulado
+            ON TI.T_Dni = DT.Cod_Dit
             INNER JOIN tbl_institucion COLE
             ON DT.id_Institucion = COLE.id_Institucion
-            WHERE T_Dni = $parametro";
+            WHERE TI.T_Dni = $parametro";
 
 $respuesta = array(
             'err' => false,

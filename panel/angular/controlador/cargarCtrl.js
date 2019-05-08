@@ -1,47 +1,63 @@
 var app = angular.module('scriptnet.cargarCrtl', []);
 
-app.controller('cargarCtrl', ['$scope', '$http','$routeParams','Titulados', function ($scope, $http, $routeParams, Titulados) {  
+app.controller('cargarCtrl', ['$scope', '$http','$routeParams','$uibModal','$log','$document', 'Titulados', function ($scope, $http, $routeParams,$uibModal, $log, $document, Titulados) {  
     // Listar
+    $scope.maxSize = 5;
+    $scope.bigTotalItems = 200;
+    $scope.bigCurrentPage = 1;
+
+    $scope.paginar = [];
+
     var pag = $routeParams.pag;
 
 	$scope.titulados = {};
-	$scope.tituladosSel = {};
-
+    $scope.cargando = false;
+    
     $scope.moverA = function( pag ){
+    
         $scope.fetchEmployees = function(){
-            var searchText = $scope.searchText;
-               
-            
+            var searchText = $scope.searchText; 
 		Titulados.cargarPagina( pag, searchText ).then( function(){
-			$scope.titulados = Titulados;
-        console.log($scope.titulados);
-        });
+            $scope.titulados = Titulados;
+
+
+            // var paginit = 1;
+            // var pagend = paginit + 2;
+
+            // var arr = [];
+            // while(paginit < pagend){
+            //     arr.push(paginit++);
+            //   }
+            
+            //   $scope.paginar = arr;
+            
+            //   console.log( $scope.titulados);
+            // console.log($scope.titulados.paginas);
+        });  
         
     }
     $scope.fetchEmployees();
     };
-    
-	$scope.moverA(pag);
-    // ######################################buscaremos al titulado
-       
-            //Obtener datos
-            // $scope.fetchEmployees = function(){
-                
-            //     var searchText = $scope.searchText;
-            //     if(searchText == undefined){
-            //         searchText = '';
-            //     }
 
-            //     $http({
-            //     method: 'post',
-            //     url: 'post.buscar.titulado.php',
-            //     data: {searchText:searchText, request: 2}
-            //     }).then(function successCallback(response) {
-            //         $scope.employees = response.data;
-            //     });
-            // }
-            // $scope.fetchEmployees();
+	$scope.moverA(pag);
+    // $scope.maspag = function(next){
+    //  if (next < $scope.titulados.paginas.length ) {
+    //    var inicio =next+1;
+    //    var fin = inicio+2;
+    //    var res =[];
+    //    while(inicio < fin){
+    //     res.push(inicio++);
+    //   }
+    //   $scope.paginar = res;
+     
+    //  } else {
        
+    //  }
+     
+    //  console.log($scope.paginar.length);
+    //   console.log(res);
+    // };
+    
     // ###################################### cargar exel
 
     $scope.selectedFile = null;  
@@ -83,19 +99,7 @@ app.controller('cargarCtrl', ['$scope', '$http','$routeParams','Titulados', func
         }).then(function (data) {
             if (data.status) {  
                 $scope.msg = "Cargado! ";  
-                var pag = $routeParams.pag;
-
-                $scope.titulados = {};
-                $scope.tituladosSel = {};
-            
-                $scope.moverA = function( pag ){
-            
-                    Titulados.cargarPagina( pag ).then( function(){
-                        $scope.titulados = Titulados;
-                    console.log($scope.titulados);
-                    });
-            
-                };
+               
                 
                 $scope.moverA(pag);
             } 
@@ -107,6 +111,61 @@ app.controller('cargarCtrl', ['$scope', '$http','$routeParams','Titulados', func
             // $scope.msg = "Error : Something Wrong";  
            
         })  
-    }  
+    };
+
+    // ###################################### Modal
+    
+    $scope.items = ['item1', 'item2', 'item3'];
+    $scope.tituladosSel = {};
+    $scope.animationsEnabled = true;
+    $scope.open = function (titulado, size, parentSelector) {
+     
+        angular.copy( titulado, $scope.tituladosSel );
+    
+        var parentElem = parentSelector ? 
+          angular.element($document[0].querySelector('.modal-fade ' + parentSelector)) : undefined;
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          controllerAs: '$scope',
+          size: size,
+          appendTo: parentElem,
+          resolve: {
+            tituladosSel: function () {
+              return $scope.tituladosSel;
+            }
+          }
+        });
+    
+        modalInstance.result.then(function (selectedItem) {
+          $scope.selected = selectedItem;
+        }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+        });
+      };
+      
+       
   
 }]);
+
+app.controller('ModalInstanceCtrl',['$scope','$uibModalInstance', 'tituladosSel', function($scope, $uibModalInstance,tituladosSel){
+   
+    $scope.items = tituladosSel;
+    console.log($scope.items);
+    $scope.selected = {
+      item: $scope.items[0]
+    };
+  
+    $scope.ok = function () {
+      $uibModalInstance.close($scope.selected.item);
+    };
+  
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+
+}]);
+

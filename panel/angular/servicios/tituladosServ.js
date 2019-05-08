@@ -3,7 +3,7 @@ var app = angular.module('scriptnet.tituladosServ',[]);
 app.factory('Titulados', ['$http', '$q', function($http, $q){
     var self = {
         'cargando'		: false,
-		'err'     		: false,
+		'err'     		: true,
 		'conteo' 		: 0,
 		'titulado' 		: [],
 		'pag_actual'    : 1,
@@ -14,7 +14,7 @@ app.factory('Titulados', ['$http', '$q', function($http, $q){
         
 
         cargarPagina: function( pag, searchText ){
-            
+
 			var d = $q.defer();
             if(searchText == undefined){
                 searchText = '';
@@ -37,25 +37,7 @@ app.factory('Titulados', ['$http', '$q', function($http, $q){
 
 
 			return d.promise;
-        },
-        // ############################### Buscara a los titulados que considan
-		buscar: function( parametro ){
-
-			var d = $q.defer();
-
-			self.cargando = true;
-
-			$http.post('consultas/get/get.tirulados.buscar.php?p=' + parametro )
-				.success(function( respuesta ){
-					self.cargando = false;
-					self.cliente = respuesta.cliente;
-					d.resolve();
-
-				});
-
-			return d.promise;
-
-		}
+        }
         
     };
     return self;

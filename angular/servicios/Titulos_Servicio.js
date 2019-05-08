@@ -54,6 +54,7 @@ app.factory('Titulos', ['$http', '$q', function($http, $q){
 			self.cargando = true;
 			$http.post('consultas/get.detalle_titulado.php?p=' + parametro)
 				.success(function( respuesta ){
+					console.log(respuesta);
 					self.cargando = false;
 					self.detalle_T = respuesta;
 					

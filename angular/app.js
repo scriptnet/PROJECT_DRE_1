@@ -66,7 +66,7 @@ app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService','
 							 
 							  
 								// $scope.titulos = Titulos.titulo;
-								
+								console.log($scope.identidad[0]);
 								 $scope.load_dt = true;
 								Titulos.detalle_titulado($scope.identidad[0]).then(function(){
 									if (Titulos.detalle_T.Detalle_T.length > 0) {
@@ -80,7 +80,7 @@ app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService','
 									} else {
 										$scope.load_dt = false
 										$scope.error2 = true;
-										//console.log("DATO no RECIBIDO");
+										console.log("DATO no RECIBIDO");
 										
 									}
 									
