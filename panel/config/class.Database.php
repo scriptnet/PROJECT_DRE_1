@@ -409,73 +409,72 @@ Public static function get_todo_paginado_titulado( $tabla, $pagina = 1, $institu
 	return  $respuesta;
 
 }
-// ================================================
-//   Funcion que pagina cualquier TABLA
-// ================================================
-Public static function get_todo_paginado_cotizaciones( $tabla, $pagina = 1, $por_pagina = 4 ){
+   // ================================================
+	//   Funcion que pagina cualquier TABLA usuarios
+	// ================================================
+	Public static function get_todo_paginado_user( $tabla, $pagina = 1, $por_pagina = 5 ){
 
-// Core de la funcion
-$db = DataBase::getInstancia();
-$mysqli = $db->getConnection();
+		// Core de la funcion
+		$db = DataBase::getInstancia();
+		$mysqli = $db->getConnection();
 
-$sql = "SELECT count(*) as cuantos from $tabla";
+		$sql = "SELECT count(*) as cuantos from $tabla";
 
-$cuantos       = Database::get_valor_query( $sql, 'cuantos' );
-$total_paginas = ceil( $cuantos / $por_pagina );
+		$cuantos       = Database::get_valor_query( $sql, 'cuantos' );
+		$total_paginas = ceil( $cuantos / $por_pagina );
 
-if( $pagina > $total_paginas ){
-	$pagina = $total_paginas;
-}
-
-
-$pagina -= 1;  // 0
-$desde   = $pagina * $por_pagina; // 0 * 20 = 0
-
-if( $pagina >= $total_paginas-1 ){
-	$pag_siguiente = 1;
-}else{
-	$pag_siguiente = $pagina + 2;
-}
-
-if( $pagina < 1 ){
-	$pag_anterior = $total_paginas;
-}else{
-	$pag_anterior = $pagina;
-}
-
-if( $desde <=0 ){
-	$desde = 0;
-}
+		if( $pagina > $total_paginas ){
+			$pagina = $total_paginas;
+		}
 
 
-$sql = "SELECT * from $tabla CO INNER JOIN cliente Cl ON CO.cliente_id_coti = Cl.id_cliente order by CO.id_coti DESC limit $desde, $por_pagina";
+		$pagina -= 1;  // 0
+		$desde   = $pagina * $por_pagina; // 0 * 20 = 0
 
-$datos = Database::get_arreglo( $sql );
+		if( $pagina >= $total_paginas-1 ){
+			$pag_siguiente = 1;
+		}else{
+			$pag_siguiente = $pagina + 2;
+		}
 
-$resultado = $mysqli->query($sql);
+		if( $pagina < 1 ){
+			$pag_anterior = $total_paginas;
+		}else{
+			$pag_anterior = $pagina;
+		}
 
-$arrPaginas = array();
-for ($i=0; $i < $total_paginas; $i++) {
-	array_push($arrPaginas, $i+1);
-}
-
-
-$respuesta = array(
-		'err'     		=> false,
-		'conteo' 		=> $cuantos,
-		$tabla 			=> $datos,
-		'pag_actual'    => ($pagina+1),
-		'pag_siguiente' => $pag_siguiente,
-		'pag_anterior'  => $pag_anterior,
-		'total_paginas' => $total_paginas,
-		'paginas'	    => $arrPaginas
-		);
+		if( $desde <=0 ){
+			$desde = 0;
+		}
 
 
-return  $respuesta;
+		$sql = "SELECT * from $tabla limit $desde, $por_pagina";
 
-}
+		$datos = Database::get_arreglo( $sql );
 
+		$resultado = $mysqli->query($sql);
+
+		$arrPaginas = array();
+		for ($i=0; $i < $total_paginas; $i++) {
+			array_push($arrPaginas, $i+1);
+		}
+
+
+		$respuesta = array(
+				'err'     		=> false,
+				'conteo' 		=> $cuantos,
+				$tabla 			=> $datos,
+				'pag_actual'    => ($pagina+1),
+				'pag_siguiente' => $pag_siguiente,
+				'pag_anterior'  => $pag_anterior,
+				'total_paginas' => $total_paginas,
+				'paginas'	    => $arrPaginas
+				);
+
+
+		return  $respuesta;
+
+	}
 
 
 

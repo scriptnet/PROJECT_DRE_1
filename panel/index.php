@@ -35,11 +35,19 @@
   <!-- Controlador js -->
   <script src="angular/app.js"></script>
   <script src="angular/controlador/cargarCtrl.js"></script>
+  <script src="angular/controlador/institucionCtrl.js"></script>
+
+
   <!-- Servicios js -->
   <script src="angular/servicios/tituladosServ.js"></script>
+  <script src="angular/servicios/institucionServ.js"></script>
    <!-- exel Libreria -->
   <script src = "js/libreria/xlsx.full.min.js" > </script>  
   <script src = "js/libreria/jszip.js" > </script>  
+
+   <!-- loadingbar -->
+   <script src="angular/lib/loading/loading-bar.js"></script>
+   <link rel="stylesheet" href="angular/lib/loading/loading-bar.css">
 </head>
 
 <body>
@@ -287,7 +295,7 @@
             <li class="dropdown">
               <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>CRUD</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link beep beep-sidebar" href="#/institucion/1">Institución</a></li>  
+                <li><a class="nav-link beep beep-sidebar" href="#/institucion/1">Institución/Usuario</a></li>  
                 <li><a class="nav-link beep beep-sidebar" href="components-avatar.html">Titulado</a></li>                                
               </ul>
             </li>

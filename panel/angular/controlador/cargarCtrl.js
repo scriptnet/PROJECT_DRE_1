@@ -1,6 +1,21 @@
 var app = angular.module('scriptnet.cargarCrtl', []);
 
-app.controller('cargarCtrl', ['$scope', '$http','$routeParams','$uibModal','$log','$document', 'Titulados', function ($scope, $http, $routeParams,$uibModal, $log, $document, Titulados) {  
+app.controller('cargarCtrl', ['$scope', '$http','$routeParams','$uibModal','$log','$document', 'Titulados', '$timeout', 'cfpLoadingBar', function ($scope, $http, $routeParams,$uibModal, $log, $document, Titulados, $timeout, cfpLoadingBar) {  
+    $scope.start = function() {
+        cfpLoadingBar.start();
+      };
+  
+      $scope.complete = function () {
+        cfpLoadingBar.complete();
+      };
+
+        $scope.start();
+        $scope.fakeIntro = true;
+        $timeout(function() {
+        $scope.complete();
+        $scope.fakeIntro = false;
+        }, 100);
+    
     // Listar
     $scope.maxSize = 5;
     $scope.bigTotalItems = 200;

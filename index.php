@@ -59,7 +59,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto ml-lg-3 align-items-lg-center">
                            
-                        <li class="nav-item d-lg-none d-md-block"><a href="#" class="nav-link smooth" target="_blank">Login</a></li>
+                        <li class="nav-item d-lg-none d-md-block"><a href="" ng-click="login()" class="nav-link smooth" target="_blank">Login</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto align-items-lg-center d-none d-lg-block">
                         <li class="ml-lg-3 nav-item">
@@ -132,14 +132,6 @@
                     
                 </div>
                 
-            </div>
-            <div class="container">
-              <div class="row">
-              <div class="col-lg-7" style="padding-top: 50px;" >
-              <div class="d-sm-none d-lg-inline-block texto_blanco">
-                NOTA:</div>
-                        </div>  
-              </div>
             </div>
             
             <div class="" style="padding-top: 150px">
