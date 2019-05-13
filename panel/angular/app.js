@@ -1,8 +1,8 @@
-var myApp = angular.module('scriptnet',['ngRoute','ngSanitize','ui.bootstrap','chieffancypants.loadingBar',
+var myApp = angular.module('scriptnet',['ngRoute','ngSanitize','ui.bootstrap','chieffancypants.loadingBar','angular-toasty',
                                         'scriptnet.cargarCrtl',
                                         'scriptnet.tituladosServ',
                                         'scriptnet.institucionCrtl',
-                                        'scriptnet.institucionServ']);
+                                        'scriptnet.institucionServ',]);
                                         myApp.config(function(cfpLoadingBarProvider) {
                                             cfpLoadingBarProvider.includeSpinner = true;
                                           });
@@ -10,6 +10,10 @@ var myApp = angular.module('scriptnet',['ngRoute','ngSanitize','ui.bootstrap','c
 myApp.controller('panelControlador', ['$scope', function($scope){
     $scope.hola = 'Hosla';
     $scope.load = false;
+
+
+   
+
 }]);
 
 // Rutas
@@ -29,7 +33,7 @@ myApp.config(['$routeProvider', function($routeProvider){
             templateUrl:'ruta/cargar.html',
             controller: 'cargarCtrl'
         })
-        .when('/institucion/:pag',{
+        .when('/institucion/:pag/:pag2',{
             templateUrl:'ruta/institucion.html',
             controller: 'institucionCtrl'
         })

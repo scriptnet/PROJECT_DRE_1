@@ -1,0 +1,21 @@
+<div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Registrar Institución</h3>
+    </div>
+    <form name="forma" ng-submit="crearInstitucion(institucion)">
+        <div class="modal-body" id="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-md-12 col-12">
+                            <label>Nombre</label>
+                            <input type="text" ng-model="institucion.nombre" class="form-control" value="ujang@maman.com" required="required">
+                        </div>
+                        </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit"  ng-disabled="forma.$invalid || cargandoInstitucion">Guardar</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+    </form>
+    

@@ -448,7 +448,8 @@ Public static function get_todo_paginado_titulado( $tabla, $pagina = 1, $institu
 		}
 
 
-		$sql = "SELECT * from $tabla limit $desde, $por_pagina";
+		$sql = "SELECT * from $tabla USER INNER JOIN tbl_institucion I ON USER.id_Institucion = I.id_Institucion order by id_Usuario DESC limit $desde, $por_pagina ";
+		
 
 		$datos = Database::get_arreglo( $sql );
 
@@ -477,13 +478,140 @@ Public static function get_todo_paginado_titulado( $tabla, $pagina = 1, $institu
 	}
 
 
+   // ================================================
+	//   Funcion que pagina cualquier TABLA Seleccionar Institucion
+	// ================================================
+	Public static function get_todo_paginado_SelectInstitucion( $tabla, $pagina = 1, $por_pagina = 100 ){
+
+		// Core de la funcion
+		$db = DataBase::getInstancia();
+		$mysqli = $db->getConnection();
+
+		$sql = "SELECT count(*) as cuantos from $tabla";
+
+		$cuantos       = Database::get_valor_query( $sql, 'cuantos' );
+		$total_paginas = ceil( $cuantos / $por_pagina );
+
+		if( $pagina > $total_paginas ){
+			$pagina = $total_paginas;
+		}
 
 
+		$pagina -= 1;  // 0
+		$desde   = $pagina * $por_pagina; // 0 * 20 = 0
+
+		if( $pagina >= $total_paginas-1 ){
+			$pag_siguiente = 1;
+		}else{
+			$pag_siguiente = $pagina + 2;
+		}
+
+		if( $pagina < 1 ){
+			$pag_anterior = $total_paginas;
+		}else{
+			$pag_anterior = $pagina;
+		}
+
+		if( $desde <=0 ){
+			$desde = 0;
+		}
 
 
+		$sql = "SELECT * from $tabla order by id_Institucion DESC limit $desde, $por_pagina ";
+
+		$datos = Database::get_arreglo( $sql );
+
+		$resultado = $mysqli->query($sql);
+
+		$arrPaginas = array();
+		for ($i=0; $i < $total_paginas; $i++) {
+			array_push($arrPaginas, $i+1);
+		}
 
 
+		$respuesta = array(
+				'err'     		=> false,
+				'conteo' 		=> $cuantos,
+				$tabla 			=> $datos,
+				'pag_actual'    => ($pagina+1),
+				'pag_siguiente' => $pag_siguiente,
+				'pag_anterior'  => $pag_anterior,
+				'total_paginas' => $total_paginas,
+				'paginas'	    => $arrPaginas
+				);
 
+
+		return  $respuesta;
+
+	}
+
+
+// ================================================
+	//   Funcion que pagina cualquier TABLA Listar Instituciones
+	// ================================================
+	Public static function get_todo_paginado_listinstituto( $tabla, $pagina = 1, $por_pagina = 5 ){
+
+		// Core de la funcion
+		$db = DataBase::getInstancia();
+		$mysqli = $db->getConnection();
+
+		$sql = "SELECT count(*) as cuantos from $tabla";
+
+		$cuantos       = Database::get_valor_query( $sql, 'cuantos' );
+		$total_paginas = ceil( $cuantos / $por_pagina );
+
+		if( $pagina > $total_paginas ){
+			$pagina = $total_paginas;
+		}
+
+
+		$pagina -= 1;  // 0
+		$desde   = $pagina * $por_pagina; // 0 * 20 = 0
+
+		if( $pagina >= $total_paginas-1 ){
+			$pag_siguiente = 1;
+		}else{
+			$pag_siguiente = $pagina + 2;
+		}
+
+		if( $pagina < 1 ){
+			$pag_anterior = $total_paginas;
+		}else{
+			$pag_anterior = $pagina;
+		}
+
+		if( $desde <=0 ){
+			$desde = 0;
+		}
+
+
+		$sql = "SELECT * from $tabla order by id_Institucion DESC limit $desde, $por_pagina ";
+
+		$datos = Database::get_arreglo( $sql );
+
+		$resultado = $mysqli->query($sql);
+
+		$arrPaginas = array();
+		for ($i=0; $i < $total_paginas; $i++) {
+			array_push($arrPaginas, $i+1);
+		}
+
+
+		$respuesta = array(
+				'err'     		=> false,
+				'conteo' 		=> $cuantos,
+				$tabla 			=> $datos,
+				'pag_actual'    => ($pagina+1),
+				'pag_siguiente' => $pag_siguiente,
+				'pag_anterior'  => $pag_anterior,
+				'total_paginas' => $total_paginas,
+				'paginas'	    => $arrPaginas
+				);
+
+
+		return  $respuesta;
+
+	}
 
 
 

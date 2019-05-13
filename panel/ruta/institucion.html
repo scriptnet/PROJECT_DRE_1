@@ -2,11 +2,11 @@
     <div class="section-header">
         <h1>Instituciones y Usuarios</h1>
     </div>
-
+    <!-- <button class="button-primary" style="width: 100px;" ng-click="newToast()" ng-bind="button"></button> -->
     <div class="row" ng-hide="fakeIntro">
         <div class="col-md-4">
             <div class="card">
-              <form ng-submit="crearUsuario(users)">
+              <form name="forma" ng-submit="crearUsuario(users)">
                   <div class="card-header">
                       <h4>Registrar Usuario</h4>
               </div>
@@ -14,32 +14,31 @@
                       <div class="section-title mt-0">Login</div>
                   <div class="form-group">
                       <label>Usuario</label>
-                      <input ng-model="users.username" type="text" class="form-control" >
+                      <input ng-model="users.username" type="text" class="form-control" required="required">
                   </div>
                   <div class="form-group">
                       <label>Contraseña</label>
-                      <input ng-model="users.userpassword" type="password" class="form-control">
+                      <input ng-model="users.userpassword" type="password" class="form-control" required="required">
                   </div>
                   <div class="section-title">Institución</div>
                   <div class="form-group">
                     <label>Seleccionar</label>
-                    <select class="form-control" ng-model="users.institucion">
-                      <option ng-repeat="opcion in data.availableOptions" value="{{opcion.id}}">{{opcion.name}}</option>
+                    <select class="form-control" ng-model="users.institucion" required="required">
+                      <option ng-repeat="opcion in SelectInst.selecInstituto" value="{{opcion.id_Institucion}}">{{opcion.I_Nombre}}</option>
                     </select>
                   </div>
                   <div class="row">
                       <div class="col-md-8">
                            <div class="form-group">
-                               <a href="#" class="btn btn-sm btn-success">Nueva  Institución</a>
+                               <a href="" ng-click="abrirmodal()" class="btn btn-sm btn-success">Nueva  Institución</a>
                            </div>
                       </div>
                   </div>
               </div>
               <div class="tickets-list">
                       <div class="ticket-item ticket-more">
-                        <input type="submit" value="Guardar" class="btn btn-primary">
+                        <input ng-disabled="forma.$invalid || cargandoUsuario"  type="submit" value="Guardar" class="btn btn-primary">
                         </div>
-                    
                     <a href="" class="ticket-item ticket-more">
                       Limpiar
                     </a>
@@ -67,18 +66,16 @@
                     <div class="table-responsive">
                       <table class="table table-striped table-md">
                         <tbody><tr>
-                          <th>#</th>
                           <th>Usuario</th>
                           <th>Contraseña</th>
                           <th>Institución</th>
                           <th>Acción</th>
                         </tr>
                         <tr ng-repeat="usuarios in listUser.usuarios">
-                          <td>{{usuarios.id_Usuario}}</td>
                           <td>{{usuarios.Us_Codigo}}</td>
-                          <td>123456789</td>
-                          <td><div class="badge badge-success">Senati</div></td>
-                          <td><a href="#" class="btn btn-secondary">Ver</a></td>
+                          <td>*********</td>
+                          <td><div>{{usuarios.I_Nombre}}</div></td>
+                          <td><a href="#" class="btn btn-success">Ver</a></td>
                         </tr>
                       </tbody></table>
                     </div>
@@ -94,8 +91,7 @@
                         <li ng-repeat="pag in listUser.paginas" class="page-item" ng-class="
                         {'active': listUser.pag_actual === pag}">
                           <a class="page-link" href="" ng-click="moverA(pag)"> {{ pag }}</a>
-                        </li>
-                        
+                        </li>      
                         <li class="page-item">
                           <a ng-click="moverA( listUser.total_paginas )" class="page-link" href=""><i class="fas fa-chevron-right"></i></a>
                         </li>
@@ -121,67 +117,36 @@
                       <div class="table-responsive">
                         <table class="table table-striped table-md">
                           <tbody><tr>
-                            <th>#</th>
-                            <th>Usuario</th>
-                            <th>Contraseña</th>
-                            <th>Institución</th>
+                            <th>Nombre</th>
                             <th>Acción</th>
                           </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>Irwansyah Saputra</td>
-                            <td>123456789</td>
-                            <td><div class="badge badge-success">Senati</div></td>
-                            <td><a href="#" class="btn btn-secondary">Ver</a></td>
+                          <tr ng-repeat="institucion in ListInst.ListInstituto">
+                            <td>{{institucion.I_Nombre}}</td>
+                           
+                            <td><a href="#" class="btn btn-success">Ver</a></td>
                           </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Hasan Basri</td>
-                            <td>123456789</td>
-                            <td><div class="badge badge-success">Senati</div></td>
-                            <td><a href="#" class="btn btn-secondary">Ver</a></td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Kusnadi</td>
-                            <td>123456789</td>
-                            <td><div class="badge badge-success">Senati</div></td>
-                            <td><a href="#" class="btn btn-secondary">Ver</a></td>
-                          </tr>
-                          <tr>
-                            <td>4</td>
-                            <td>Rizal Fakhri</td>
-                            <td>123456789</td>
-                            <td><div class="badge badge-success">Senati</div></td>
-                            <td><a href="#" class="btn btn-secondary">Ver</a></td>
-                          </tr>
-                          <tr>
-                            <td>5</td>
-                            <td>Isnap Kiswandi</td>
-                            <td>123456789</td>
-                            <td><div class="badge badge-success">Senati</div></td>
-                            <td><a href="#" class="btn btn-secondary">Ver</a></td>
-                          </tr>
+                         
                         </tbody></table>
                       </div>
                     </div>
                     <div class="card-footer text-right">
-                      <nav class="d-inline-block">
-                        <ul class="pagination mb-0">
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
-                          </li>
-                          <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
+                        <nav class="d-inline-block">
+                          <ul class="pagination mb-0">
+                            <li ng-click="ListInstFunc(1)" class="page-item">
+                              <a class="page-link" href="" tabindex="-1">
+                                <i class="fas fa-chevron-left"></i>
+                              </a>
+                            </li>
+                            <li ng-repeat="pag2 in ListInst.paginas2" class="page-item" ng-class="
+                            {'active': ListInst.pag_actual2 === pag2}">
+                              <a class="page-link" href="" ng-click="ListInstFunc(pag2)"> {{ pag2 }}</a>
+                            </li>      
+                            <li class="page-item">
+                              <a ng-click="ListInstFunc( ListInst.total_paginas2 )" class="page-link" href=""><i class="fas fa-chevron-right"></i></a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
                   </div>
               </div>
               

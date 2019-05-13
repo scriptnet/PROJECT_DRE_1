@@ -152,6 +152,7 @@ app.controller('mainCtrl', ['$scope', '$http', 'Titulos', 'vcRecaptchaService','
 					$scope.cargandoLogin = false;
 					$scope.mensaje = data.mensaje;
 				} else {
+					
 					window.location = data.url;
 				}
 		});

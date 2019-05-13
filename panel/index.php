@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="css/loader.css">
    <!-- CSS Libraries -->
    <link rel="stylesheet" href="assets/modules/ionicons/css/ionicons.min.css">
+   <link href="angular/lib/toasty/angular-toasty.min.css" rel="stylesheet" />
    
 
   <!-- angularjs 1.5.0 -->
@@ -295,14 +296,14 @@
             <li class="dropdown">
               <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>CRUD</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link beep beep-sidebar" href="#/institucion/1">Institución/Usuario</a></li>  
+                <li><a class="nav-link beep beep-sidebar" href="#/institucion/1/1">Institución/Usuario</a></li>  
                 <li><a class="nav-link beep beep-sidebar" href="components-avatar.html">Titulado</a></li>                                
               </ul>
             </li>
           </ul>
 
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-            <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
+            <a href="#/" class="btn btn-primary btn-lg btn-block btn-icon-split">
               <i class="fas fa-question-circle"></i> Preguntas
             </a>
           </div>        
@@ -313,6 +314,7 @@
       <div class="main-content" ng-view>
         
       </div>
+      <toasty></toasty>
       <!-- <footer class="main-footer">
         <div class="footer-left">
           Copyright &copy; 2019 <div class="bullet"></div> Desarrollado por <a href="http://BD-IO.com/">BD-IO</a>
@@ -334,7 +336,7 @@
   <script src="assets/js/stisla.js"></script>
   
   <!-- JS Libraies -->
-
+  <script src="angular/lib/toasty/angular-toasty.js"></script>
   <!-- Page Specific JS File -->
   <!-- Page Specific JS File -->
   <script src="assets/js/page/modules-ion-icons.js"></script>
